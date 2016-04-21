@@ -2,8 +2,9 @@
 
 - name: Install postgresql
   pkgng:
-    name: postgresql95-server
+    # default php56-pgsql depends on 9.3
+    name: "{{ item }}"
     state: present
   with_items:
-    - databases/postgresql95-server
-    - databases/postgresql95-client
+    - postgresql93-server
+    - postgresql93-client

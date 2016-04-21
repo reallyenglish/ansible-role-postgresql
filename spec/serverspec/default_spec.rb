@@ -14,7 +14,7 @@ case os[:family]
 when 'freebsd'
   user = 'pgsql'
   group = 'pgsql'
-  package = 'postgresql95-server'
+  package = 'postgresql93-server'
   config = '/usr/local/pgsql/data/postgresql.conf'
   db_dir = '/usr/local/pgsql/data'
 end
