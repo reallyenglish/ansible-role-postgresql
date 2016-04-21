@@ -1,0 +1,9 @@
+---
+
+- name: Install postgresql
+  pkgng:
+    name: postgresql95-server
+    state: present
+  with_items:
+    - databases/postgresql95-server
+    - databases/postgresql95-client

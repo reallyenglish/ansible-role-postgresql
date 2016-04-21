@@ -1,0 +1,2 @@
+__postgresql_db_dir: /usr/local/pgsql/data
+__postgresql_conf: /usr/local/pgsql/data/postgresql.conf

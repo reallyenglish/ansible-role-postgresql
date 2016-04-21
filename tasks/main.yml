@@ -1,0 +1,39 @@
+---
+# tasks file for ansible-role-postgresql
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Create db directory
+  file:
+    path: "{{ postgresql_db_dir }}"
+    mode: 0755
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_group }}"
+    state: directory
+  notify: Restart postgresql
+
+- shell: "ls -1 {{ postgresql_db_dir }}/base"
+  register: ls_result
+  ignore_errors: True
+  changed_when: False
+  
+- command: "initdb -D {{ postgresql_db_dir }} --encoding=utf-8 --lc-collate=C"
+  become: yes
+  become_user: "{{ postgresql_user }}"
+  become_method: sudo
+  when: ls_result.rc != 0
+
+- name: Create postgresql.conf
+  template:
+    src: postgresql.conf.j2
+    dest: "{{ postgresql_conf }}"
+  notify: Restart postgresql
+
+- name: Start postgresql
+  service:
+    name: "{{ postgresql_service }}"
+    enabled: true
+    state: started

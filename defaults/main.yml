@@ -1,0 +1,6 @@
+postgresql_user: pgsql
+postgresql_group: pgsql
+postgresql_db_dir: "{{ __postgresql_db_dir }}"
+postgresql_service: postgresql
+postgresql_conf: "{{ __postgresql_conf }}"
+postgresql_flags: ""
