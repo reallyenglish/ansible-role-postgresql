@@ -9,7 +9,7 @@
 - name: Create db directory
   file:
     path: "{{ postgresql_db_dir }}"
-    mode: 0755
+    mode: 0700
     owner: "{{ postgresql_user }}"
     group: "{{ postgresql_group }}"
     state: directory
