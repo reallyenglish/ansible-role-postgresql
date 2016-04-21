@@ -8,3 +8,4 @@
   with_items:
     - postgresql93-server
     - postgresql93-client
+    - py27-psycopg2
