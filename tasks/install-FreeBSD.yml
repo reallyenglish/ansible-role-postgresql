@@ -6,6 +6,6 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - postgresql93-server
-    - postgresql93-client
+    - postgresql95-server
+    - postgresql95-client
     - py27-psycopg2

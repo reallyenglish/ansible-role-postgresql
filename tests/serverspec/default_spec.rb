@@ -1,32 +1,32 @@
-require 'spec_helper'
-require 'serverspec'
+require "spec_helper"
+require "serverspec"
 
-package = 'postgresql'
-service = 'postgresql'
-config  = '/etc/postgresql/postgresql.conf'
-user    = 'postgresql'
-group   = 'postgresql'
-ports   = [ 5432 ]
-log_dir = '/var/log/postgresql'
-db_dir  = '/var/lib/postgresql'
+package = "postgresql"
+service = "postgresql"
+config  = "/etc/postgresql/postgresql.conf"
+user    = "postgresql"
+group   = "postgresql"
+ports   = [5432]
+# log_dir = "/var/log/postgresql"
+db_dir  = "/var/lib/postgresql"
 
 case os[:family]
-when 'freebsd'
-  user = 'pgsql'
-  group = 'pgsql'
-  package = 'postgresql93-server'
-  config = '/usr/local/pgsql/data/postgresql.conf'
-  db_dir = '/usr/local/pgsql/data'
+when "freebsd"
+  user = "pgsql"
+  group = "pgsql"
+  package = "postgresql95-server"
+  config = "/usr/local/pgsql/data/postgresql.conf"
+  db_dir = "/usr/local/pgsql/data"
 end
 
 describe package(package) do
   it { should be_installed }
-end 
+end
 
 describe file(config) do
   it { should be_file }
   its(:content) { should match Regexp.escape("log_destination = 'syslog'") }
-  its(:content) { should match /max_connections = 100/ }
+  its(:content) { should match(/max_connections = 100/) }
 end
 
 describe file(db_dir) do
